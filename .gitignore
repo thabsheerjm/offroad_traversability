@@ -69,5 +69,8 @@ data/output/
 # === Misc ===
 *.~lock.*
 *.blend1
+*.mp4 
+*.avi
 
 off_env/*
+data/*
