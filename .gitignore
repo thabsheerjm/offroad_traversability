@@ -1,0 +1,73 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.ipynb
+*.egg-info/
+*.log
+
+# Virtual environment
+venv/
+env/
+.off_env/
+*.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# === PyTorch / ONNX Models ===
+*.pth
+*.pt
+*.onnx
+*.onnx.save
+*.onnx.log
+
+# TensorBoard and checkpoints
+runs/
+checkpoints/
+*.ckpt
+
+# === C++ / Build ===
+build/
+cmake-build*/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+*.o
+*.so
+*.out
+*.a
+*.exe
+
+# === System Files ===
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === Logs, dumps ===
+*.log
+*.bak
+*.swp
+*.tmp
+*.old
+
+# === VS Code / JetBrains IDEs ===
+.vscode/
+.idea/
+
+# === Data ===
+data/test_images/
+data/output/
+*.npy
+*.csv~
+*.zip
+*.tar.gz
+
+# === Misc ===
+*.~lock.*
+*.blend1
+
+off_env/*
