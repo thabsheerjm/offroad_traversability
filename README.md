@@ -16,4 +16,4 @@ offering a step toward low-cost, vision-based off-road navigation system.
 <div style="display: flex; justify-content: center;">
   <img src="media/bicycle_overlay.gif" alt="Overlay" width="500">
 </div>
-_____________________________________________________________________________________________________________________
+<hr>
