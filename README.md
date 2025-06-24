@@ -1,4 +1,4 @@
-# Monocular Vision-Based Traverability Estimation for Offroad Navigation 
+# Monocular Vision-Based Traversability Estimation for Offroad Navigation 
 
 ## Abstract 
 
@@ -11,4 +11,9 @@ from a curated set of semantic classes. We construct a PyTorch training pipeline
 on-the-fly data filtering, and validation-based checkpointing. The final model is exported to ONNX and 
 integrated into a real-time C++ semantic segmentation system. This pipeline enables scalable, sensor-efficient terrain 
 understanding for autonomous ground vehicles (AGVs) operating in complex natural environments, 
-offering a step toward low-cost, vision-based off-road navigation system. 
+offering a step toward low-cost, vision-based off-road navigation system.  
+
+<div style="display: flex; justify-content: center;">
+  <img src="media/bicycle_overlay.gif" alt="Overlay" width="500">
+</div>
+_____________________________________________________________________________________________________________________
