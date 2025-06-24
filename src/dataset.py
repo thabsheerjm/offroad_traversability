@@ -48,8 +48,8 @@ class GOOSEDataset(Dataset):
 if __name__ == '__main__':
 
     dataset = GOOSEDataset(
-    rgb_dir="data/GOOSE/rgb",
-    mask_dir="data/GOOSE/masks",
+    rgb_dir="data/GOOSE/train/rgb",
+    mask_dir="data/GOOSE/train/masks",
     mapping_csv="data/GOOSE/goose_label_mapping.csv",
     traversable_labels=["asphalt", "gravel", "low_grass", "high_grass", "soil",
     "cobble", "moss", "bikeway", "sidewalk", "road_marking"])
