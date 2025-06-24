@@ -59,8 +59,7 @@ Desktop.ini
 .idea/
 
 # === Data ===
-data/test_images/
-data/output/
+data/GOOSE/
 *.npy
 *.csv~
 *.zip
@@ -75,3 +74,5 @@ data/output/
 off_env/*
 data/*
 onnxruntime/*
+models/finetuned/* 
+models/pretrained/*
