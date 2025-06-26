@@ -17,3 +17,23 @@ offering a step toward low-cost, vision-based off-road navigation system.
   <img src="media/bicycle_overlay.gif" alt="Overlay" width="500">
 </div>
 <hr>
+
+
+## Installation 
+
+1. Download the `.deb` package
+   ```bash
+   wget https://github.com/thabsheerjm/offroad_traversability/releases/download/v1.0/offroad-traversability_1.0_amd64.deb
+2. Install the package  
+   ```bash
+   sudo apt install ./offroad-traversability_1.0_amd64.deb
+3. Dependencies
+   ```bash
+   sudo apt install libopencv-dev
+3. To uninstall
+   ```bash
+   sudo dpkg --remove offroad-traversability
+## How to run : Usage
+```bash
+offroad_run.sh <input_video_path> <output_video_path>
+
