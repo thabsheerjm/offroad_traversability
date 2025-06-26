@@ -3,7 +3,7 @@ from torchvision import transforms
 from torchvision.models.segmentation import deeplabv3_mobilenet_v3_large
 from torch.nn import functional as F 
 from pathlib import Path 
-from src.model import DeepLabHead
+from model import DeepLabHead
 
 def test_config(config_path="src/config/config.json"):
     with open(config_path, 'r') as f:

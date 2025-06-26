@@ -34,7 +34,6 @@ int main(int argc, char** argv) {
     int height = first.rows;
     int fps = 10;
 
-    // MPEG-4 codec 
     cv::VideoWriter writer(output_video, cv::VideoWriter::fourcc('m', 'p', '4', 'v'), fps, cv::Size(width, height));
 
     if (!writer.isOpened()) {

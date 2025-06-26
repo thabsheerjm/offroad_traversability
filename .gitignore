@@ -76,3 +76,6 @@ data/*
 onnxruntime/*
 models/finetuned/* 
 models/pretrained/*
+
+# pkg 
+deb_pkg/opt/offroad_traversability/models/* 
