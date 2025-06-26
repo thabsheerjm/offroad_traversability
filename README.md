@@ -16,11 +16,14 @@ offering a step toward low-cost, vision-based off-road navigation system.
 <div style="display: flex; justify-content: center;">
   <img src="media/bicycle_overlay.gif" alt="Overlay" width="500">
 </div>
+
 <hr>
 
+The detailed implementation can be accessed [here](offroad_navigation-report.pdf).
+
+<hr>
 
 ## Installation 
-
 1. Download the `.deb` package
    ```bash
    wget https://github.com/thabsheerjm/offroad_traversability/releases/download/v1.0/offroad-traversability_1.0_amd64.deb
