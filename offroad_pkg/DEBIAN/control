@@ -1,0 +1,8 @@
+Package: offroad-traversability
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: amd64
+Depends: libopencv-dev
+Maintainer: thabsheerjm <thabsheerjm1@gmail.com>
+Description: Offroad Terrain Traversability Estimator using ONNX + OpenCV (CPU-only)
