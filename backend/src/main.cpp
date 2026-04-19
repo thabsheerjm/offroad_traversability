@@ -8,6 +8,8 @@
 #include "preprocessing.h"
 #include "inference.h"
 #include "postprocessing.h"
+#include "zmq_pub.h"
+
 
 int main(int argc, char** argv) {
     if (argc < 4) {
@@ -22,10 +24,11 @@ int main(int argc, char** argv) {
     try {
         FrameReader reader(input_video_path);
         InferenceEngine engine(model_path);
+        ZMQPub publisher("tcp://*:5555");
 
         cv::VideoWriter writer(
             output_video_path, cv::VideoWriter::fourcc('m','p','4','v'),
-            reader.fps(), cv::Size(reader.width(), reader.height())
+            reader.fps(), cv::Size(inference_width, inference_height)
         );
         if (!writer.isOpened()){
             throw std::runtime_error("Could not open output file for writing: " + output_video_path);
@@ -36,7 +39,7 @@ int main(int argc, char** argv) {
             auto t0 = std::chrono::high_resolution_clock::now();
 
             std::vector<float> input_tensor;
-            cv::Mat resized = preprocess(frame, 512, 512, input_tensor);
+            cv::Mat resized = preprocess(frame, inference_width, inference_height, input_tensor);
 
             auto t1 = std::chrono::high_resolution_clock::now();
             InferenceResult result = engine.run(input_tensor, resized.rows, resized.cols);
@@ -55,9 +58,10 @@ int main(int argc, char** argv) {
                 << "  inf: " << result.inference_ms << "ms"
                 << "  pre: " <<preprocess_ms << "ms";
 
-            cv::putText(overlay, oss.str(), cv::Point(10,30), cv::FONT_HERSHEY_SIMPLEX, 1, {255, 255, 255}, 2);
+            // cv::putText(overlay, oss.str(), cv::Point(10,30), cv::FONT_HERSHEY_SIMPLEX, 1, {255, 255, 255}, 2);
+            publisher.publish(result, preprocess_ms, display_fps, overlay);
             writer.write(overlay);
-            cv::imshow("Offroad Segmentation", overlay);
+            // cv::imshow("Offroad Segmentation", overlay);
             if (cv::waitKey(1) == 27) break;
         }
 
