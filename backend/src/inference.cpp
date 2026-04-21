@@ -56,7 +56,10 @@ InferenceResult InferenceEngine::run(const std::vector<float>& input_tensor, int
         t1.time_since_epoch()).count();
 
     result.traversability_mask = cv::Mat(input_height, input_width, CV_32F, output_data).clone();
-    result.confidence = static_cast<float>(cv::mean(result.traversability_mask)[0]);
+    cv::Mat sigmoid_mask;
+    cv::exp(-result.traversability_mask, sigmoid_mask);
+    sigmoid_mask = 1.0/(1.0 + sigmoid_mask);
+    result.confidence = static_cast<float>(cv::mean(sigmoid_mask)[0]);
     result.raw_output = std::vector<float>(output_data, output_data + output_size);
     return result;
 

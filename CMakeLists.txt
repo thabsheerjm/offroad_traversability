@@ -7,7 +7,5 @@ find_package(OpenCV REQUIRED)
 
 set(ONNXRUNTIME_DIR "${CMAKE_SOURCE_DIR}/onnxruntime")
 
-include_directories(${ONNXRUNTIME_DIR}/include)
-link_directories(${ONNXRUNTIME_DIR}/lib)
 
-add_subdirectory(cpp)
+add_subdirectory(backend)

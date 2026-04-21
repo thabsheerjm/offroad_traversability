@@ -1,81 +1,89 @@
-# === Python ===
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.pkl
-*.ipynb
-*.egg-info/
+# Logs
+logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Virtual environment
-venv/
-env/
-.off_env/
-*.env
+node_modules
+dist
+dist-ssr
+*.local
 
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-# === PyTorch / ONNX Models ===
-*.pth
-*.pt
-*.onnx
-*.onnx.save
-*.onnx.log
-
-# TensorBoard and checkpoints
-runs/
-checkpoints/
-*.ckpt
-
-# === C++ / Build ===
+# Build artifacts
 build/
-cmake-build*/
-CMakeFiles/
-CMakeCache.txt
-Makefile
 *.o
-*.so
-*.out
 *.a
-*.exe
 
-# === System Files ===
+# Python
+__pycache__/
+*.pyc
+*.pyo
+off_env/
+bridge/venv/
+*.egg-info/
+
+# Environment and local config
+config/offroad-dev.yaml
+dashboard/.env
+dashboard/.env.production
+.env
+
+# Node
+dashboard/node_modules/
+dashboard/dist/
+
+# Data — never commit datasets or videos
+data/
+
+# Models — large binary files, distribute separately
+models/
+
+# Logs and session output
+logs/
+*.csv
+
+# Debian build artifacts
+deploy/offroad-traversability_*.deb
+deploy/deb/usr/local/bin/offroad_segmentation
+deploy/deb/usr/local/lib/offroad/bridge/bridge.py
+deploy/deb/usr/local/lib/offroad/bridge/requirements.txt
+deploy/deb/usr/share/offroad/dashboard/
+
+# IDE
+.vscode/
+.vite/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
 Thumbs.db
-ehthumbs.db
-Desktop.ini
 
-# === Logs, dumps ===
-*.log
-*.bak
-*.swp
-*.tmp
-*.old
+# backend, dev config
+backend/include/model_reg.h
+backend/include/utils.h
+config/offroad-dev.yaml
 
-# === VS Code / JetBrains IDEs ===
-.vscode/
-.idea/
+# deploy
+deploy/deb/DEBIAN/control
+dashboard/.env
+dashboard/.env.production
 
-# === Data ===
-data/GOOSE/
-*.npy
-*.csv~
-*.zip
-*.tar.gz
-
-# === Misc ===
-*.~lock.*
-*.blend1
-*.mp4 
-*.avi
-
-off_env/*
+#data, media
 data/*
-onnxruntime/*
-models/finetuned/* 
-models/pretrained/*
-
-# pkg 
-deb_pkg/opt/offroad_traversability/models/* 
+onnxruntime/

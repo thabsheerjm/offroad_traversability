@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <cstdlib>
 #include <opencv2/opencv.hpp>
 #include <chrono>
 #include "config.h"
@@ -13,7 +14,8 @@
 
 int main(int argc, char** argv) {
     if (argc < 4) {
-        std::cerr << "Usage: ./offroad_segmentation <onnx_model_path> <input_video_path> <output_video_path>\n";
+        std::cerr << "Usage: ./offroad_segmentation <onnx_model_path> <input_video_path> <output_video_path>\n"
+                  << "bridge/bridge.py launches this. "
         return 1;
     }
 
@@ -24,7 +26,9 @@ int main(int argc, char** argv) {
     try {
         FrameReader reader(input_video_path);
         InferenceEngine engine(model_path);
-        ZMQPub publisher("tcp://*:5555");
+        const char* zmq_port_env = std::getenv("OFFROAD_ZMQ_PORT");
+        std::string zmq_endpoint = std::string("tcp://*:") + (zmq_port_env ? zmq_port_env: "5555");
+        ZMQPub publisher(zmq_endpoint);
 
         cv::VideoWriter writer(
             output_video_path, cv::VideoWriter::fourcc('m','p','4','v'),
@@ -52,17 +56,17 @@ int main(int argc, char** argv) {
             cv::Mat mask = postprocess_mask(result.raw_output, resized.rows, resized.cols, kTraversabilityThreshold);
             cv::Mat overlay = overlay_mask(resized, mask,  kOverlayOpacity);
 
-            std::ostringstream oss;
-            oss << std::fixed <<std::setprecision(1)
-                << "FPS: "<< display_fps
-                << "  inf: " << result.inference_ms << "ms"
-                << "  pre: " <<preprocess_ms << "ms";
+            // std::ostringstream oss;
+            // oss << std::fixed <<std::setprecision(1)
+            //     << "FPS: "<< display_fps
+            //     << "  inf: " << result.inference_ms << "ms"
+            //     << "  pre: " <<preprocess_ms << "ms";
 
             // cv::putText(overlay, oss.str(), cv::Point(10,30), cv::FONT_HERSHEY_SIMPLEX, 1, {255, 255, 255}, 2);
             publisher.publish(result, preprocess_ms, display_fps, overlay);
             writer.write(overlay);
             // cv::imshow("Offroad Segmentation", overlay);
-            if (cv::waitKey(1) == 27) break;
+            // if (cv::waitKey(1) == 27) break;
         }
 
         }

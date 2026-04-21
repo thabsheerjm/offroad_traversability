@@ -1,42 +1,16 @@
-# Monocular Vision-Based Traversability Estimation for Offroad Navigation 
+# React + Vite
 
-## Abstract 
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-The ability to perceive and understand terrain traversability is paramount for the safe and efficient navigation 
-of unstructured, off-road environments. In this work, we present a real-time system designed to generate a 
-traversability map of the off-road environment using only monocular RGB images. We leverage the GOOSE dataset, 
-which provides aligned RGB images and semantic masks, to train and fine-tune a DeepLabv3+ segmentation model with a 
-MobileNet backbone. Our focus is on binary segmentation of traversable versus non-traversable terrain, derived 
-from a curated set of semantic classes. We construct a PyTorch training pipeline with custom dataset handling, 
-on-the-fly data filtering, and validation-based checkpointing. The final model is exported to ONNX and 
-integrated into a real-time C++ semantic segmentation system. This pipeline enables scalable, sensor-efficient terrain 
-understanding for autonomous ground vehicles (AGVs) operating in complex natural environments, 
-offering a step toward low-cost, vision-based off-road navigation system.  
+Currently, two official plugins are available:
 
-<div style="display: flex; justify-content: center;">
-  <img src="media/bicycle_overlay.gif" alt="Overlay" width="500">
-</div>
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-<hr>
+## React Compiler
 
-The detailed implementation can be accessed [here](offroad_navigation-report.pdf).
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-<hr>
+## Expanding the ESLint configuration
 
-## Installation 
-1. Download the `.deb` package
-   ```bash
-   wget https://github.com/thabsheerjm/offroad_traversability/releases/download/v1.0/offroad-traversability_1.0_amd64.deb
-2. Install the package  
-   ```bash
-   sudo apt install ./offroad-traversability_1.0_amd64.deb
-3. Dependencies
-   ```bash
-   sudo apt install libopencv-dev
-3. To uninstall
-   ```bash
-   sudo dpkg --remove offroad-traversability
-## How to run : Usage
-```bash
-offroad_run.sh <input_video_path> <output_video_path>
-
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

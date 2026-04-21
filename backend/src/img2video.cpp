@@ -7,7 +7,7 @@ namespace fs = std::filesystem;
 int main(int argc, char** argv) {
     if (argc < 3) {
         std::cerr << "Usage: ./img2video <image_folder> <output_video_path.mp4>" << std::endl;
-        return -1;
+        return 1;
     }
     std::string image_folder = argv[1];
     std::string output_video = argv[2];

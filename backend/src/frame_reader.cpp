@@ -21,6 +21,7 @@ FrameReader::~FrameReader(){
 
 bool FrameReader::next(cv::Mat& frame){
     // return cap_.read(frame) && !frame.empty();
+
     // loop back to back
     if (!cap_.read(frame) || frame.empty()){
         cap_.set(cv::CAP_PROP_POS_FRAMES, 0);

@@ -1,0 +1,16 @@
+# Offroad traversability - runtime config
+
+backend:
+  binary: /usr/local/bin/offroad_segmentation
+  model: /usr/local/lib/offroad/models/deeplabv3_mnv3_finetuned.onnx
+
+video:
+  source_dir: /usr/local/lib/offroad/videos
+  output_dir: /var/lib/offroad/output
+
+logging:
+  log_dir: /var/lib/offroad/logs
+
+server:
+  zmq_port: 5555
+  bridge_port: 8000

@@ -1,0 +1,45 @@
+#!/bin/bash
+set -e
+
+# create system user if not exists
+if ! id -u offroad &>/dev/null; then
+    useradd --system --no-create-home --shell /bin/false offroad
+fi
+
+# create runtime directories
+mkdir -p /var/lib/offroad/logs
+mkdir -p /var/lib/offroad/output
+mkdir -p /var/lib/offroad/videos
+chown -R offroad:offroad /var/lib/offroad
+
+# install Python dependencies
+python3 -m venv /usr/local/lib/offroad/venv
+/usr/local/lib/offroad/venv/bin/pip install --quiet \
+    pyzmq fastapi uvicorn websockets pyyaml
+
+# set up nginx to serve dashboard
+cat > /etc/nginx/sites-available/offroad <<'EOF'
+server {
+    listen 3000;
+    root /usr/share/offroad/dashboard;
+    index index.html;
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+EOF
+
+ln -sf /etc/nginx/sites-available/offroad \
+       /etc/nginx/sites-enabled/offroad
+nginx -t && systemctl reload nginx || true
+
+# enable and start services
+systemctl daemon-reload
+systemctl enable offroad-bridge.service
+systemctl enable offroad-dashboard.service
+systemctl start offroad-bridge.service
+systemctl start offroad-dashboard.service
+
+echo "Offroad Traversability installed."
+echo "Dashboard: http://localhost:3000"
+echo "Edit config: /etc/offroad/offroad.yaml"

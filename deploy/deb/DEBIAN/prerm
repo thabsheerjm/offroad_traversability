@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+systemctl stop offroad-bridge.service || true
+systemctl stop offroad-dashboard.service || true
+systemctl disable offroad-bridge.service || true
+systemctl disable offroad-dashboard.service || true
+
+rm -f /etc/nginx/sites-enabled/offroad
+systemctl reload nginx || true
+
+echo "Offroad Traversability services stopped."
