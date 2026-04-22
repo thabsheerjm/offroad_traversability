@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 find_package(OpenCV REQUIRED)
 
-set(ONNXRUNTIME_DIR "${CMAKE_SOURCE_DIR}/onnxruntime")
+set(ONNXRUNTIME_DIR "${CMAKE_SOURCE_DIR}/onnxruntime" CACHE PATH "Path to ONNX Runtime")
 
 
 add_subdirectory(backend)

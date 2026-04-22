@@ -1,7 +1,20 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      '/ws': {
+        target: 'ws://localhost:8000',
+        ws: true,
+      },
+      '/config': {
+        target: 'http://localhost:8000',
+      },
+      '/download_log': {
+        target: 'http://localhost:8000',
+      },
+    }
+  }
 })

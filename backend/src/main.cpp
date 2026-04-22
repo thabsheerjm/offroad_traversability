@@ -15,7 +15,7 @@
 int main(int argc, char** argv) {
     if (argc < 4) {
         std::cerr << "Usage: ./offroad_segmentation <onnx_model_path> <input_video_path> <output_video_path>\n"
-                  << "bridge/bridge.py launches this. "
+                  << "bridge/bridge.py launches this.";
         return 1;
     }
 

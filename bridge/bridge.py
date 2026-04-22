@@ -34,6 +34,7 @@ backend_proc = None
 current_log_path = None
 log_file = None
 
+
 async def zmq_listener():
     ctx = zmq.asyncio.Context()
     sock = ctx.socket(zmq.SUB)
@@ -166,6 +167,14 @@ async def ws_endpoint(websocket: WebSocket):
     except WebSocketDisconnect:
         clients.discard(websocket)
         print(f"Client disconnected. Total: {len(clients)}")
+
+@app.get("/config")
+async def get_config():
+    return {
+        "bridge_port": BRIDGE_PORT,
+        "zmq_port":    ZMQ_PORT,
+    }
+
 
 @app.get("/download_log")
 async def download_log():

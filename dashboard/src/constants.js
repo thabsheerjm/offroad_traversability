@@ -1,8 +1,7 @@
-export const BRIDGE_PORT = import.meta.env.VITE_BRIDGE_PORT ?? '8000'
-export const WS_URL      = `ws://localhost:${BRIDGE_PORT}/ws`
-export const BRIDGE_URL  = `http://localhost:${BRIDGE_PORT}`
-
 export const CONF_THRESHOLD = 35
+
+export const mono  = "'JetBrains Mono', 'Fira Mono', monospace"
+export const inter = "'Inter', 'Segoe UI', system-ui, sans-serif"
 
 export const G = {
   bg:         '#f8faf8',
@@ -19,12 +18,14 @@ export const G = {
   amberLight: '#FAEEDA',
 }
 
-export const mono  = "'JetBrains Mono', 'Fira Mono', monospace"
-export const inter = "'Inter', 'Segoe UI', system-ui, sans-serif"
-
 export function elapsed(startTs) {
   const secs = Math.floor((Date.now() - startTs) / 1000)
   const m = String(Math.floor(secs / 60)).padStart(2, '0')
   const s = String(secs % 60).padStart(2, '0')
   return `${m}:${s}`
 }
+
+
+const origin = window.location.origin
+export const WS_URL     = `${origin.replace('http', 'ws')}/ws`
+export const BRIDGE_URL = origin

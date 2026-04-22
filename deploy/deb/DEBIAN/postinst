@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-# create system user if not exists
+echo "Setting up Offroad Traversability..."
+
+# create system user
 if ! id -u offroad &>/dev/null; then
     useradd --system --no-create-home --shell /bin/false offroad
 fi
@@ -10,19 +12,52 @@ fi
 mkdir -p /var/lib/offroad/logs
 mkdir -p /var/lib/offroad/output
 mkdir -p /var/lib/offroad/videos
+mkdir -p /usr/local/lib/offroad/models
 chown -R offroad:offroad /var/lib/offroad
+
+# copy ONNX Runtime so
+cp /usr/local/lib/offroad/onnxruntime/lib/libonnxruntime.so* /usr/local/lib/
+ldconfig
+
+# compile C++ backend natively
+BUILD_DIR=$(mktemp -d)
+cd "$BUILD_DIR"
+cmake /usr/local/lib/offroad/src \
+    -DONNXRUNTIME_DIR=/usr/local/lib/offroad/onnxruntime \
+    -DCMAKE_BUILD_TYPE=Release
+make -j$(nproc)
+cp backend/offroad_segmentation /usr/local/bin/
+chmod 755 /usr/local/bin/offroad_segmentation
+cd /
+rm -rf "$BUILD_DIR"
 
 # install Python dependencies
 python3 -m venv /usr/local/lib/offroad/venv
 /usr/local/lib/offroad/venv/bin/pip install --quiet \
     pyzmq fastapi uvicorn websockets pyyaml
 
-# set up nginx to serve dashboard
+# set up nginx
 cat > /etc/nginx/sites-available/offroad <<'EOF'
 server {
     listen 3000;
     root /usr/share/offroad/dashboard;
     index index.html;
+
+    location /config {
+        proxy_pass http://127.0.0.1:8000/config;
+    }
+
+    location /ws {
+        proxy_pass http://127.0.0.1:8000/ws;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location /download_log {
+        proxy_pass http://127.0.0.1:8000/download_log;
+    }
+
     location / {
         try_files $uri $uri/ /index.html;
     }
@@ -33,13 +68,30 @@ ln -sf /etc/nginx/sites-available/offroad \
        /etc/nginx/sites-enabled/offroad
 nginx -t && systemctl reload nginx || true
 
-# enable and start services
+# enable services
 systemctl daemon-reload
 systemctl enable offroad-bridge.service
-systemctl enable offroad-dashboard.service
 systemctl start offroad-bridge.service
-systemctl start offroad-dashboard.service
 
-echo "Offroad Traversability installed."
-echo "Dashboard: http://localhost:3000"
-echo "Edit config: /etc/offroad/offroad.yaml"
+echo ""
+echo "========================================"
+echo "  Offroad Traversability — Ready"
+echo "========================================"
+echo ""
+echo "  Dashboard:  http://localhost:3000"
+echo ""
+echo "  Setup checklist:"
+echo "  [ ] Copy ONNX model to:"
+echo "      /usr/local/lib/offroad/models/"
+echo "  [ ] Copy test videos to:"
+echo "      /var/lib/offroad/videos/"
+echo "  [ ] Open http://localhost:3000"
+echo ""
+echo "  Config: /etc/offroad/offroad.yaml"
+echo "  Logs:   /var/lib/offroad/logs/"
+echo ""
+echo "  To check status:"
+echo "    sudo systemctl status offroad-bridge"
+echo "========================================"
+echo ""
+
