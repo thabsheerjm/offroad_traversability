@@ -30,8 +30,9 @@ without a GPU.
 ## Architecture
 
 <p align="center">
-  <img src="media/app.png" alt="Architecture" width="450">
+  <img src="media/app.png" alt="Architecture" width="300" height="460">
 </p>
+
 ## System Requirements
 
 - Ubuntu 20.04 / 22.04 (amd64)
