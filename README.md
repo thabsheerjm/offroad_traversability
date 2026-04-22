@@ -30,7 +30,7 @@ without a GPU.
 ## Architecture
 
 <p align="center">
-  <img src="media/system_architecture.svg" alt="Architecture" width="450">
+  <img src="media/app.png" alt="Architecture" width="450">
 </p>
 ## System Requirements
 
