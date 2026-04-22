@@ -3,9 +3,9 @@
 Real-time monocular terrain traversability estimation for autonomous ground vehicles (AGVs).
 Deployable on Linux edge devices as a single `.deb` package.
 
-<div style="text-align: center;">
+<p align="center">
   <img src="media/dashboard.png" alt="Dashboard" width="700">
-</div>
+</p>
 
 ---
 
@@ -17,9 +17,9 @@ DeepLabV3+ segmentation model with MobileNetV3 backbone, trained on the
 [GOOSE dataset](https://goose-dataset.de/).
 
 
-<div style="text-align: center;">
-  <img src="media/bicycle_overlay.gif" alt="Architecture" width="600">
-</div>
+<p align="center">
+  <img src="media/bicycle_overlay.gif" alt="Overlay" width="600">
+</p>
 
 
 The system runs entirely on CPU, making it suitable for deployment on low-cost edge hardware
@@ -29,10 +29,9 @@ without a GPU.
 
 ## Architecture
 
-<div style="text-align: center;">
-  <img src="media/app.png" alt="Architecture" width="450">
-</div>
-
+<p align="center">
+  <img src="media/system_architecture.svg" alt="Architecture" width="450">
+</p>
 ## System Requirements
 
 - Ubuntu 20.04 / 22.04 (amd64)
